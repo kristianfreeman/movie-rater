@@ -93,7 +93,11 @@ export default function App() {
       <div style={{ marginTop: '1rem' }}>
         {results.map((movie) => (
           <div key={movie.id} style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1rem' }}>
-            <img style={{ background: '#eee', width: '187px', height: '280px', objectFit: 'cover' }} src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
+            <img
+              alt={movie.title}
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              style={{ background: '#eee', width: '187px', height: '280px', objectFit: 'cover' }}
+            />
             <div style={{ marginLeft: '2rem' }}>
               <h3>{movie.title}</h3>
               <p style={{ color: "rgba(0, 0, 0, 0.8)" }}>{movie.overview}</p>

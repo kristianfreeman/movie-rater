@@ -1,14 +1,24 @@
 import type { APIRoute } from "astro";
 
+import stubData from '../json/search.json';
+
 type SearchRequest = {
   search: string;
 }
 
+const stubbed = true;
+
 export const POST: APIRoute = async ({ locals, request }) => {
   try {
+    const { MOVIEDB_API_KEY: apiKey } = locals.runtime.env;
+
+    if (stubbed) {
+      return new Response(JSON.stringify(stubData));
+    }
+
     const { search } = await request.json<SearchRequest>();
     if (!search) return new Response("Missing search term", { status: 400 });
-    const apiKey = locals.runtime.env.MOVIEDB_API_KEY;
+
     const url = `https://api.themoviedb.org/3/search/movie?query=${search}&api_key=${apiKey}`;
     const response = await fetch(url);
     const data = await response.json() as any;
