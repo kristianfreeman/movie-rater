@@ -6,5 +6,5 @@ pages_build_output_dir = "./dist"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "movie-rater-db"
-database_id = "a584b5df-6b73-4092-a970-3171a85692ad"
+database_name = "movie-rater"
+database_id = "7a6628c9-f7c8-4e8c-aa33-f476bcf7d943"

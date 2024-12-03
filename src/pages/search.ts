@@ -6,7 +6,7 @@ type SearchRequest = {
   search: string;
 }
 
-const stubbed = true;
+const stubbed = false;
 
 export const POST: APIRoute = async ({ locals, request }) => {
   try {

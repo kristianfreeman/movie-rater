@@ -100,7 +100,7 @@ export default function App() {
             />
             <div style={{ marginLeft: '2rem' }}>
               <h3>{movie.title}</h3>
-              <p style={{ color: "rgba(0, 0, 0, 0.8)" }}>{movie.overview}</p>
+              <p style={{ color: "rgba(255, 255, 255, 0.8)" }}>{movie.overview}</p>
 
               {ratings[movie.id] && !ratings[movie.id].draft ? (
                 <div>
