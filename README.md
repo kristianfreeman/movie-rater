@@ -17,7 +17,7 @@ You will need an API key from TheMovieDB and a Cloudflare account to run this ex
 
 ## Database setup
 
-1. `npx wrangler@latest d1 databse create <your-db-name`
+1. `npx wrangler@latest d1 database create <your-db-name>`
 2. Copy the command output and add it to `wrangler.toml` (your `database_name` and `database_id` will be different):
 
 ```toml
