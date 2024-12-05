@@ -17,28 +17,60 @@ type Rating = {
   draft?: boolean;
 }
 
+type AppError = {
+  type: 'Search' | 'Ratings';
+  message: string;
+}
+
 export default function App() {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState<Movie[]>([]);
   const [ratings, setRatings] = useState<Record<number, Rating>>({});
+  const [error, setError] = useState<AppError | null>(null);
   const [searchValue] = useDebounce(search, 500);
 
   const getMovies = async (search: string) => {
-    const response = await fetch(`/search`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ search }),
-    });
-    const data = await response.json<Movie[]>();
-    setResults(data);
+    let err: AppError;
+
+    try {
+      const response = await fetch(`/search`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ search }),
+      });
+
+      if (!response.ok) {
+        err = { type: 'Search', message: "Unable to fetch movies" };
+        throw new Error(err);
+      }
+
+      const data = await response.json<Movie[]>();
+      setResults(data);
+      setError(null);
+    } catch (error) {
+      setError(err);
+    }
   };
 
   const getRatings = async () => {
-    const response = await fetch('/ratings');
-    const data = await response.json<RatingResponse>();
-    setRatings(data);
+    let err: AppError;
+
+    try {
+      const response = await fetch('/ratings');
+
+      if (!response.ok) {
+        err = { type: 'Ratings', message: "Unable to fetch ratings" };
+        throw new Error(err);
+      }
+
+      const data = await response.json<RatingResponse>();
+      setRatings(data);
+      setError(null);
+    } catch (error) {
+      setError(err);
+    }
   };
 
   const updateRatingLocally = (e: React.ChangeEvent<HTMLSelectElement>, movieId: number) => {
@@ -81,7 +113,7 @@ export default function App() {
   }, [searchValue]);
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <input
         autoFocus
         placeholder="Search for a movie"
@@ -89,6 +121,8 @@ export default function App() {
         type="text"
         value={search}
       />
+
+      {error && <div style={{ color: 'red' }}>{error.type}: {error.message}</div>}
 
       <div style={{ marginTop: '1rem' }}>
         {results.map((movie) => (
