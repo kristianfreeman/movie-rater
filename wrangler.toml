@@ -3,3 +3,8 @@ name = "movie-rater"
 compatibility_date = "2024-11-12"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "./dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "movie-rater"
+database_id = "e9e8fbb0-0e8d-4ba5-9ea6-e4cf88e51f78"
