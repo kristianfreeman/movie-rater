@@ -27,5 +27,5 @@ database_name = "movie-rater-db"
 database_id = "a584b5df-6b73-4092-a970-3171a85692ad"
 ```
 
-3. `npx wrangler@latest d1 migrations apply --remote`
+3. `npx wrangler@latest d1 migrations apply --remote DB`
 4. `npm run deploy`
